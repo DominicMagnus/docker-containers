@@ -1,0 +1,2 @@
+docker build -t ansible-container .
+docker run --rm -it -v ${PWD}/hosts:/etc/ansible/hosts -v ${PWD}/ansible.cfg:/etc/ansible/ansible.cfg -v ${HOME}/.ssh:/root/.ssh:ro ansible-container all -m ping

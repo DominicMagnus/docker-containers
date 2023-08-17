@@ -1,0 +1,34 @@
+docker build -t awscli-container .
+
+###
+
+###
+# якщо хочете залишити контейнер запущеним
+
+docker run -d \
+  -v $HOME/.aws:/root/.aws:ro \
+  --name awscli \
+  awscli-container \
+  history
+
+
+
+docker exec -it awscli iam list-users
+
+# одноразове викоритсання 
+docker run --rm -it \
+-v $HOME/.aws:/root/.aws:ro \
+--name awscli \
+awscli-container \
+iam list-users
+
+
+
+docker logs <container_id>
+docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}"
+
+
+###
+
+docker stop awscli
+docker rm awscli
