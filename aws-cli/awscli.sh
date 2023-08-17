@@ -5,7 +5,3 @@ docker run --rm -it \
 --name awscli \
 awscli-container \
 "$@"
-
-
-# sudo chmod +x awscli.sh
-# ./awscli.sh iam list-users

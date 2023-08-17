@@ -1,11 +1,3 @@
-# Run awscli in a container and list s3 buckets
-#
-# docker run --rm -it \
-#	--name awscli \
-#	jess/awscli \
-#       s3 ls
-#
-
 FROM alpine:latest
 LABEL maintainer "Alex"
 

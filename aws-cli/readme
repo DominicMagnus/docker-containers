@@ -1,34 +1,41 @@
+### 1
+# Копіюємо ваші креди до файлів config та credentials
+# .aws/credentials
+# .aws/config
+
+### 2
+# копіюємо каталог .aws з вашими файлами в ваш домашній каталог /home/user
+
+### 3
+# Відкриваємо докер файл. замінюємо LABEL maintainer "Alex" на вашого юзера
+
+### 3
+# Створюємо образ
+
 docker build -t awscli-container .
 
+
+
 ###
-
-###
-# якщо хочете залишити контейнер запущеним
-
-docker run -d \
-  -v $HOME/.aws:/root/.aws:ro \
-  --name awscli \
-  awscli-container \
-  history
-
-
-
-docker exec -it awscli iam list-users
-
 # одноразове викоритсання 
+
 docker run --rm -it \
 -v $HOME/.aws:/root/.aws:ro \
 --name awscli \
 awscli-container \
 iam list-users
 
+### створюємо файл в вашій домашній директорії
+sudo nano awscli.sh
 
-
-docker logs <container_id>
-docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}"
-
+# sudo chmod +x awscli.sh
+# ./awscli.sh iam list-users
 
 ###
 
+docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}"
+
+###
+docker logs <container_id>
 docker stop awscli
 docker rm awscli
