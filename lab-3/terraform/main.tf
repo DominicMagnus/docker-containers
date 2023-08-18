@@ -1,27 +1,39 @@
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "3.0.2"
+    }
+  }
+}
+
 provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
-resource "docker_image" "apache_image" {
+resource "docker_image" "httpd" {
   name = "httpd:latest"
 }
 
-resource "docker_container" "apache_container" {
+resource "docker_container" "my_apache_container" {
   name  = "my-apache-container"
-  image = docker_image.apache_image.latest
+  image = "httpd:latest"
+
   ports {
-    internal = 80
     external = 8080
+    internal = 80
+    ip       = "0.0.0.0"
+    protocol = "tcp"
   }
 
-  # Mount the index.html file from your local directory into the container
   volumes {
-    volume_name    = "html_volume"
     container_path = "/usr/local/apache2/htdocs"
-    host_path      = "${path.module}/index.html" # Assuming index.html is in the same directory as the Terraform configuration
+    host_path      = "/workspace"
+    volume_name    = "html_volume"
   }
 }
 
 resource "docker_volume" "html_volume" {
   name = "html_volume"
 }
+

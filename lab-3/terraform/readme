@@ -3,5 +3,8 @@ docker build -t terraform-image .
 docker run -it --rm -v $(pwd):/workspace terraform-image terraform --version
 
 
+
+
 docker run -it --rm -v $(pwd):/workspace terraform-image terraform init
-docker run -it --rm -v $(pwd):/workspace terraform-image terraform apply
+docker run -it --rm -v $(pwd):/workspace -v /var/run/docker.sock:/var/run/docker.sock terraform-image terraform apply
+
