@@ -20,7 +20,7 @@ resource "docker_container" "my_apache_container" {
   image = "httpd:latest"
 
   ports {
-    external = 8080
+    external = 8081
     internal = 80
     ip       = "0.0.0.0"
     protocol = "tcp"
